@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10 – B Timetable · Fantasy Neon + Popup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <canvas id="galaxy"></canvas>
+  <canvas id="fireflies"></canvas>
+
+  <div class="hud">
+    <div class="hud-left">
+      <button id="fantasyToggle" class="btn">⚡ Fantasy Mode</button>
+      <button id="particlesToggle" class="btn">✨ Particles</button>
+      <button id="backgroundToggle" class="btn">🎨 Change BG</button>
+      <button id="calendarToggle" class="btn">🗓️ Calendar</button>
+    </div>
+    <div class="hud-right">
+      <label class="switch">
+        <input type="checkbox" id="reduceMotion">
+        <span class="slider"></span>
+      </label>
+      <span class="switch-label">Reduce motion</span>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div class="frame-glow"></div>
+    <header class="titlebar">
+      <h1>10 – B කාලසටහන</h1>
+    </header>
+
+    <section class="timetable card">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th data-day="සදුදා">සදුදා</th>
+            <th data-day="අඟහරුවාදා">අඟහරුවාදා</th>
+            <th data-day="බදාදා">බදාදා</th>
+            <th data-day="බ්‍රහස්පතින්දා">බ්‍රහස්පතින්දා</th>
+            <th data-day="සිකුරාදා">සිකුරාදා</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>බුද්ධ ධර්මය</td><td>ඉංග්‍රීසි</td><td>ඉංග්‍රීසි</td><td>ඉතිහාසය</td><td>Sinhala LIT</td></tr>
+          <tr><td>2</td><td>බුද්ධ ධර්මය</td><td>ඉංග්‍රීසි</td><td>සිංහල</td><td>විද්‍යාව</td><td>Sinhala LIT</td></tr>
+          <tr><td>3</td><td>I.C.T</td><td>P.T</td><td>සිංහල</td><td>සිංහල</td><td>ඉතිහාසය</td></tr>
+          <tr><td>4</td><td>I.C.T</td><td>විද්‍යාව</td><td>විද්‍යාව</td><td>සිංහල</td><td>ඉතිහාසය</td></tr>
+          <tr><td>5</td><td>ගණිතය</td><td>ඉතිහාසය</td><td>විද්‍යාව</td><td>I.C.T</td><td>සිංහල</td></tr>
+          <tr class="interval"><td colspan="6">I N T E R V A L</td></tr>
+          <tr><td>6</td><td>ගණිතය</td><td>බුද්ධ ධර්මය</td><td>Sinhala LIT</td><td>ගණිතය</td><td>විද්‍යාව</td></tr>
+          <tr><td>7</td><td>විද්‍යාව</td><td>Commerce</td><td>Commerce</td><td>ගණිතය</td><td>ගණිතය</td></tr>
+          <tr><td>8</td><td>ඉංග්‍රීසි</td><td>ගණිතය</td><td>Commerce</td><td>ඉංග්‍රීසි</td><td>ගණිතය</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="footer card">
+      <div class="legend">
+        <span class="dot dot-sci"></span> විද්‍යාව
+        <span class="dot dot-math"></span> ගණිතය
+        <span class="dot dot-lang"></span> සිංහල / ඉංග්‍රීසි
+        <span class="dot dot-ict"></span> I.C.T
+        <span class="dot dot-hist"></span> ඉතිහාසය
+      </div>
+    </footer>
+  </main>
+
+  <div class="scanlines"></div>
+
+  <div id="dayPopup" class="modal">
+    <div class="modal-content card">
+      <span class="close">&times;</span>
+      <h2 id="popupTitle"></h2>
+      <table id="popupTable"></table>
+    </div>
+  </div>
+
+  <div id="calendarModal" class="modal">
+    <div class="modal-content card calendar-with-schedule">
+      <span class="close-calendar">&times;</span>
+      <div class="calendar-panel">
+        <div class="calendar-header">
+          <button id="prevMonth" class="btn modern-nav-btn">◀️</button>
+          <h2 id="currentMonthYear"></h2>
+          <button id="nextMonth" class="btn modern-nav-btn">▶️</button>
+        </div>
+        <div class="calendar-grid-header">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+        <div id="calendarBody" class="calendar-grid"></div>
+      </div>
+      
+      <div id="sidePanel" class="schedule-panel">
+        <h3 id="panelDate"></h3>
+        <div id="scheduleContent"></div>
+
+        <div id="notesContainer">
+            <h3 class="notes-heading">Notes</h3>
+            <textarea id="noteInput" placeholder="Add your notes here..."></textarea>
+            <button id="saveNoteBtn" class="btn save-btn">💾 Save</button>
+            <div id="noteStatus"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="reminderModal" class="modal">
+    <div class="modal-content card">
+      <span class="close-reminder">&times;</span>
+      <h2 id="reminderTitle">Today's Note</h2>
+      <p id="reminderNote"></p>
+      <button id="closeReminderBtn" class="btn">Got it!</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

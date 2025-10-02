@@ -1,0 +1,238 @@
+/* --- 1. GLOBAL SETUP & NEON COLORS --- */
+:root {
+    /* Standard Dark/Black Background - Base color */
+    --bg-dark: #1A0000;       
+    --neon-pink: #FF33FF;     
+    --neon-purple: #9D00FF;   
+    --neon-red: #FF073A;      
+    --light-text: #F0F0F0;    
+    --grid-bg: #2b0000;       
+    --font-primary: 'Share Tech Mono', monospace;
+    --font-title: 'Major Mono Display', monospace;
+}
+
+body {
+    /* FIX: Ensures the body background is dark */
+    background-color: var(--bg-dark); /* THIS MUST BE PRESENT AND CORRECT */
+    /* ... rest of body styles ... */
+    position: relative; 
+    overflow: hidden; 
+    background-color: var(--bg-dark); 
+    color: var(--light-text);
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    position: relative; 
+    overflow: hidden; /* Prevents scrollbars from the background animation */
+}
+body::before {
+    content: '';
+    position: absolute;
+    /* ... positioning properties ... */
+    background: radial-gradient(
+        circle at center,
+        rgba(77, 0, 0, 0.4) 0%,   /* Dark Vine Red at center */
+        rgba(77, 0, 0, 0.3) 20%,
+        rgba(77, 0, 0, 0.0) 70%   
+    );
+    /* ... other properties ... */
+    animation: backgroundPulseMix 20s infinite alternate ease-in-out; /* THIS IS KEY */
+    z-index: -2; 
+}
+/* 💥 FADING DARK VINE RED BACKGROUND MIX ANIMATION 💥 */
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(77, 0, 0, 0.4) 0%,   /* Dark Vine Red at center */
+        rgba(77, 0, 0, 0.3) 20%,  
+        rgba(77, 0, 0, 0.0) 70%   /* Fading out to transparent */
+    );
+    opacity: 0.9; 
+    animation: backgroundPulseMix 20s infinite alternate ease-in-out; /* Slower, deeper pulse */
+    pointer-events: none;
+    z-index: -2; 
+}
+
+@keyframes backgroundPulseMix {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.2) rotate(10deg); opacity: 0.9; }
+    100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+}
+
+/* --- 2. HEADER & TITLE --- */
+header h1 {
+    font-size: 2.5em;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#crazy-heading {
+    font-family: 'Creepster', cursive; 
+    font-size: 4em;
+    letter-spacing: 0.1em;
+    color: var(--neon-red);
+    text-shadow: 
+        0 0 7px rgba(255, 7, 58, 1),
+        0 0 15px rgba(255, 7, 58, 0.7),
+        0 0 30px rgba(255, 7, 58, 0.5);
+}
+.subtitle {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: -20px;
+    margin-bottom: 50px;
+    text-shadow: 0 0 5px var(--neon-purple);
+}
+
+/* ------------------------------------------- */
+/* --- 3. CYBERPUNK MODULES & SCANLINES --- */
+/* ------------------------------------------- */
+
+.class-terminal-container {
+    padding-top: 40px;
+    position: relative; 
+}
+
+/* Scan Line Effect (Sits between body background and content) */
+.class-terminal-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.4) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 5; 
+}
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; 
+    padding: 0 20px;
+    position: relative; 
+    z-index: 10;
+}
+
+.subject-module {
+    /* FIX: Dark Wine Red Background for the Module/Tab */
+    background-color: rgba(37, 0, 0, 0.85); 
+    padding: 25px;
+    
+    /* Core Cyberpunk border */
+    border: 3px solid var(--neon-purple); 
+    box-shadow: 0 0 15px rgba(157, 0, 255, 0.5); 
+    
+    text-decoration: none;
+    color: var(--light-text);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    display: block;
+}
+
+/* 🔥 CYBERPUNK HOVER EFFECT: Extreme Glow and Scale 🔥 */
+.subject-module:hover {
+    transform: scale(1.05); 
+    z-index: 15;
+    
+    border-color: var(--neon-red); 
+    box-shadow: 
+        0 0 10px var(--neon-pink), 
+        0 0 25px var(--neon-red), 
+        0 0 40px var(--neon-pink);
+}
+
+/* 🔴 OFFLINE/DISABLED MODULE STYLE 🔴 */
+.subject-module.offline {
+    opacity: 0.3; 
+    pointer-events: none; 
+    cursor: default;
+    border-style: dotted; 
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    transform: none;
+}
+.subject-module.offline:hover {
+    box-shadow: none; 
+}
+
+
+/* Text Elements */
+.subject-module .module-code {
+    display: block;
+    font-family: var(--font-primary);
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.subject-module .module-title {
+    font-family: var(--font-title); 
+    font-size: 2.2em;
+    margin: 0 0 15px 0;
+    color: var(--neon-pink); 
+    text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.subject-module .module-desc {
+    font-size: 1em;
+    color: var(--light-text);
+    margin-bottom: 25px;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: block;
+    font-size: 0.9em;
+    font-family: var(--font-title);
+    padding: 10px 0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.status-indicator.active {
+    color: #00FF33; 
+    text-shadow: 0 0 8px #00FF33;
+    animation: flickerGreen 1s infinite alternate; 
+}
+
+.status-indicator.offline {
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: none;
+}
+
+/* --- THEMATIC ANIMATIONS --- */
+@keyframes flickerGreen {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 8px #00FF33; }
+    20%, 24%, 55% { opacity: 0.8; text-shadow: none; }
+}
+
+
+/* COLOR-THEMED BORDERS/CODES (Base Colors for non-hover state) */
+.subject-module.module-pink { border-color: var(--neon-pink); }
+.subject-module.module-purple { border-color: var(--neon-purple); }
+.subject-module.module-red { border-color: var(--neon-red); }
+.subject-module.module-status { border-color: var(--neon-red); }
+
+.subject-module.module-pink .module-code { color: var(--neon-pink); }
+.subject-module.module-purple .module-code { color: var(--neon-purple); }
+.subject-module.module-red .module-code { color: var(--neon-red); }
+.subject-module.module-status .module-code { color: var(--neon-red); }

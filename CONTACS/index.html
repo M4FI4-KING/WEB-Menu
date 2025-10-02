@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY CONTACTS DB</title>
+    
+    <link rel="stylesheet" href="assets/css/styles.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Major+Mono+Display&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+    <div id="app-container" class="app-container">
+
+        <div class="container">
+            <header class="neon-glow-text">
+                <h1 id="crazy-heading">M Y . C O N T A C T S</h1>
+            </header>
+
+            <div class="controls">
+                <label for="csv-file" class="neon-button import-button">
+                    ⬆️ IMPORT GOOGLE CSV
+                </label>
+                <input type="file" id="csv-file" accept=".csv" onchange="handleCSVUpload(event)" style="display: none;">
+                
+                <button class="neon-button export-button" onclick="exportContacts()">
+                    ⬇️ EXPORT DATA
+                </button>
+                
+                <button 
+                    id="reset-button"
+                    class="neon-button reset-button" 
+                    onmousedown="startEraseCountdown()"
+                    onmouseup="cancelEraseCountdown()"
+                    onmouseleave="cancelEraseCountdown()"
+                    ontouchstart="startEraseCountdown()"
+                    ontouchend="cancelEraseCountdown()"
+                >
+                    WIPE ALL DATA
+                </button>
+                
+                <input type="text" id="search-input" placeholder="SERCH /// Find Contact or ID..." onkeyup="searchContacts()">
+                
+                <button class="neon-button add-button" onclick="openAddModal()">
+                    + NEW DATA ENTRY
+                </button>
+            </div>
+
+            <main class="contact-grid" id="contacts-list">
+                </main>
+        </div>
+    
+    </div>
+    
+    
+    <div id="add-modal" class="modal-overlay" onclick="closeModal(event, 'add-modal')">
+        <div class="modal-content">
+            <span class="close-button" onclick="document.getElementById('add-modal').style.display='none'">&times;</span>
+            <h2 id="modal-title" class="neon-purple-text">> INPUT NEW CONTACT DATA</h2>
+            
+            <input type="hidden" id="contact-index">
+
+            <input type="text" id="add-name" placeholder="Name or Alias">
+            <textarea id="add-numbers" placeholder="CONTACT NUMBERS (One number per line)" rows="4"></textarea> 
+            <textarea id="add-details" placeholder="DETAILS / Notes (Address, Email, Company...)"></textarea>
+            
+            <button id="save-edit-button" class="neon-button save-button" onclick="saveContact()">
+                [ SAVE & COMMIT DATA ]
+            </button>
+        </div>
+    </div>
+    
+    <div id="view-modal" class="modal-overlay" onclick="closeModal(event, 'view-modal')">
+        <div class="modal-content view-details-content" id="view-modal-content">
+            <span class="close-button" onclick="document.getElementById('view-modal').style.display='none'">&times;</span>
+            <h2 class="neon-pink-text">> CONTACT DATA FILE</h2>
+            
+            <div id="contact-detail-content">
+                
+                <div class="detail-section">
+                    <span class="detail-label">FILE NAME:</span>
+                    <span id="detail-name" class="detail-value"></span>
+                </div>
+                <div class="detail-section" id="detail-numbers-box"> 
+                    <span class="detail-label">ID NUMBERS:</span>
+                    </div>
+                <div class="detail-section">
+                    <span class="detail-label">GROUP:</span>
+                    <span id="detail-group" class="detail-value">--- NONE ---</span>
+                </div>
+                <div class="detail-section details-box">
+                    <span class="detail-label">NOTES/DETAILS:</span>
+                    <p id="detail-details"></p>
+                </div>
+            </div>
+            
+            <button id="detail-edit-button" class="neon-button edit-button" style="margin-right: 10px;">
+                [ EDIT DATA ]
+            </button>
+
+            <button 
+                id="detail-delete-button" 
+                class="neon-button delete-button-detail"
+                onmousedown="startContactDeleteCountdown()"
+                onmouseup="cancelContactDeleteCountdown()"
+                onmouseleave="cancelContactDeleteCountdown()"
+                ontouchstart="startContactDeleteCountdown()"
+                ontouchend="cancelContactDeleteCountdown()"
+            >
+                [ PERMANENTLY ERASE DATA ]
+            </button>
+            <input type="hidden" id="delete-contact-index">
+
+        </div>
+    </div>
+    
+    <div id="group-modal" class="modal-overlay" onclick="closeModal(event, 'group-modal')">
+        <div class="modal-content">
+            <span class="close-button" onclick="document.getElementById('group-modal').style.display='none'">&times;</span>
+            <h2 class="neon-purple-text">> FILTER/MANAGE GROUPS</h2>
+            
+            <div class="group-controls">
+                <select id="group-filter-select" onchange="filterContactsByGroup(this.value)">
+                    <option value="ALL">-- VIEW ALL GROUPS --</option>
+                    <option value="NONE">-- NO GROUP ASSIGNED --</option>
+                    </select>
+            </div>
+            
+            <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 20px 0;">
+
+            <p class="neon-red-text" style="font-size: 0.9em;">Click the **G** button on a contact card to **ASSIGN/CHANGE** its group.</p>
+            
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
