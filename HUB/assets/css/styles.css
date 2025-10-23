@@ -1,76 +1,78 @@
-/* --- 1. GLOBAL SETUP & NEON COLORS --- */
-:root {
-    --bg-dark: #1A0000;       
-    --neon-pink: #FF33FF;     
-    --neon-purple: #9D00FF;   
-    --neon-red: #FF073A;      
-    --light-text: #F0F0F0;    
-    --grid-bg: #2b0000;       
-    --font-primary: 'Share Tech Mono', monospace;
-    --font-title: 'Major Mono Display', monospace;
-}
+        /* --- 1. GLOBAL SETUP & NEON COLORS --- */
+        :root {
+            --bg-dark: #1A0000;
+            --neon-pink: #FF33FF;
+            --neon-purple: #9D00FF;
+            --neon-red: #FF073A;
+            --neon-blue: #00FFFF; /* Weather Module Color */
+            --neon-orange: #FF7F00; /* Secondary Elements Color */
+            --light-text: #F0F0F0;
+            --grid-bg: #2b0000;
+            --font-primary: 'Share Tech Mono', monospace;
+            --font-title: 'Major Mono Display', monospace;
+        }
 
-body {
-    background-color: var(--bg-dark);
-    color: var(--light-text);
-    font-family: var(--font-primary);
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
-    box-sizing: border-box;
-}
+        body {
+            background-color: var(--bg-dark);
+            color: var(--light-text);
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            line-height: 1.5;
+        }
 
-.app-container {
-    padding: 0;
-}
+        .app-container {
+            padding: 0;
+        }
 
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* --- 2. HEADER & TITLE --- */
-header h1 {
-    font-size: 2.5em;
-    text-align: center;
-    padding-bottom: 20px;
-}
+        /* --- 2. HEADER & TITLE --- */
+        header h1 {
+            font-size: 2.5em;
+            text-align: center;
+            padding-bottom: 20px;
+        }
 
-#crazy-heading {
-    font-family: 'Creepster', cursive; 
-    font-size: 4em;
-    letter-spacing: 0.1em;
-    color: var(--neon-red);
-    text-shadow: 
-        0 0 7px rgba(255, 7, 58, 1),
-        0 0 15px rgba(255, 7, 58, 0.7),
-        0 0 30px rgba(255, 7, 58, 0.5);
-}
+        #crazy-heading {
+            font-family: 'Creepster', cursive; 
+            font-size: 4em;
+            letter-spacing: 0.1em;
+            color: var(--neon-red);
+            text-shadow: 
+                0 0 7px rgba(255, 7, 58, 1),
+                0 0 15px rgba(255, 7, 58, 0.7),
+                0 0 30px rgba(255, 7, 58, 0.5);
+        }
 
-/* HUB-SPECIFIC STYLES */
+        /* HUB-SPECIFIC STYLES */
 
-.hub-container {
-    padding-top: 50px;
-}
+        .hub-container {
+            padding-top: 50px;
+        }
 
-.subtitle {
-    text-align: center;
-    font-size: 1.2em;
-    margin-top: -20px;
-    margin-bottom: 50px;
-    text-shadow: 0 0 5px var(--neon-pink);
-}
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: -20px;
+            margin-bottom: 50px;
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
 
-/* Access Grid Layout */
-.access-grid {
-    display: grid;
-    /* This creates a responsive grid: minimum 280px wide columns */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 20px;
-    padding: 0 20px;
-}
+        /* Access Grid Layout */
+        .access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px;
+            padding: 0 20px;
+        }
 
-/* Default Module Style */
+        /* Default Module Style */
 .access-module {
     background-color: #110000;
     padding: 25px;
@@ -97,54 +99,185 @@ header h1 {
     border-style: dashed;
     box-shadow: none;
 }
+        /* Module Text Elements */
+        .module-code {
+            display: block;
+            font-family: var(--font-title);
+            font-size: 0.8em;
+            color: var(--neon-red);
+            margin-bottom: 5px;
+        }
 
-/* Module Text Elements */
-.module-code {
-    display: block;
-    font-family: var(--font-title);
-    font-size: 0.8em;
-    color: var(--neon-red);
-    margin-bottom: 5px;
-}
+        .module-title {
+            font-size: 1.8em;
+            margin: 0 0 5px 0;
+            color: var(--light-text);
+            letter-spacing: 1px;
+        }
 
-.module-title {
-    font-size: 1.8em;
-    margin: 0 0 5px 0;
-    color: var(--light-text);
-    letter-spacing: 1px;
-}
+        .module-desc {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+        
+        /* --- OFFLINE/DISABLED MODULE (0x06) --- */
+        /* This reflects your preferred "old vibe" disabled style */
+        .module-off {
+            background-color: #110000; 
+            border: 2px dashed rgba(255, 255, 255, 0.15); /* Dashed border style */
+            box-shadow: none; 
+            opacity: 0.5; /* Less visibility */
+            cursor: default; 
+            pointer-events: none; /* Cannot be clicked/tapped */
+            transition: none;
+        }
+        .module-off .module-code { color: #555555; }
+        .module-off .module-title { color: #888888; }
+        .module-off:hover {
+            transform: none; /* Disable hover movement */
+            box-shadow: none; /* Disable hover glow */
+            opacity: 0.5; /* Maintain base opacity */
+        }
+        
+        /* Blue/Weather Module */
+        .module-blue {
+            cursor: pointer;
+        }
+        .module-blue:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+        .module-blue .module-code { color: var(--neon-blue); }
 
-.module-desc {
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-}
+        /* --- 3. WEATHER WIDGET STYLES --- */
+        #weather-widget {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        #weather-location {
+            font-size: 1.6em;
+            margin-bottom: 5px;
+            color: var(--neon-orange);
+            text-shadow: 0 0 5px var(--neon-orange);
+            transition: color 0.3s;
+        }
+
+        #widget-main-info {
+            font-size: 3.5em; 
+            font-family: var(--font-title);
+            color: var(--neon-red);
+            text-align: center;
+            line-height: 1;
+            margin: 10px 0;
+            text-shadow: 0 0 10px var(--neon-red);
+        }
+
+        #widget-detail-info {
+            font-size: 1em;
+            color: var(--neon-pink);
+            text-align: center;
+            margin-top: 5px;
+        }
 
 
-/* COLOR-THEMED GLOWS */
 
-/* Pink Module */
-.module-pink:hover {
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 25px var(--neon-pink);
-}
-.module-pink .module-code { color: var(--neon-pink); }
+        
+        /* --- 4. MODAL/POPUP STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
 
-/* Purple Module */
-.module-purple:hover {
-    border-color: var(--neon-purple);
-    box-shadow: 0 0 25px var(--neon-purple);
-}
-.module-purple .module-code { color: var(--neon-purple); }
+        .modal-content {
+            background: #0d001a;
+            padding: 30px;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 40px var(--neon-blue);
+            max-width: 90%;
+            width: 500px;
+            transform: scale(0.9);
+            animation: pulse-glow 1s infinite alternate;
+            cursor: default;
+        }
 
-/* Red/Danger Module */
-.module-red:hover {
-    border-color: var(--neon-red);
-    box-shadow: 0 0 25px var(--neon-red);
-}
-.module-red .module-code { color: var(--neon-red); }
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 40px var(--neon-blue); }
+            to { box-shadow: 0 0 50px var(--neon-pink); }
+        }
 
-/* Status Module (No hover effect, static glow) */
+        .modal-title {
+            font-family: var(--font-title);
+            color: var(--neon-blue);
+            text-align: center;
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .hourly-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .hourly-grid::-webkit-scrollbar { width: 5px; }
+        .hourly-grid::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 10px; }
+        .hourly-grid::-webkit-scrollbar-track { background: var(--bg-dark); }
+
+
+        .time-entry {
+            background-color: #110000;
+            padding: 10px;
+            border: 1px solid rgba(255, 127, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1em;
+        }
+
+        .time-entry .time {
+            color: var(--neon-orange);
+            font-weight: bold;
+        }
+
+        .time-entry .icon {
+            font-size: 1.5em;
+            text-shadow: 0 0 5px var(--neon-red);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .hourly-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        /* Status Module (No hover effect, static glow) */
 .module-status {
     border-color: #00FF33; /* Neon Green */
     box-shadow: 0 0 15px #00FF33;
@@ -160,3 +293,4 @@ header h1 {
     color: #00FF33 !important;
     font-weight: bold;
 }
+
